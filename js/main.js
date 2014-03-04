@@ -2,7 +2,7 @@
 
 $(function() {
     // show larger images
-    $("#work figure a").on("click", function(e) {
+    $("#work .btn").on("click", function(e) {
         cs.modal(this);
         return false // kill defalut and stop propagation
     });
@@ -18,32 +18,13 @@ $(function() {
     })
     // open social links in new window
     $("a[href^='http://']").attr("target","_blank");
+
+    $(".work-list > li").hoverIntent(function(){
+        $(this).addClass("active");
+    }, function() {
+        $(this).removeClass("active");
+    })
 });
-
-
-
-
-// anything in here only happens on screens wider than 768px;
-enquire.register("screen and (min-width:768px)", {
-
-    match : function() {
-        // wait for images in header to load then animate text
-        $("site-header").imagesLoaded()
-            .done( function() {
-                var tl = new TimelineMax;
-                var shiny = new SplitText("#shiny", {type:"words,chars"});
-                var chars = shiny.chars;
-                $("#site-header .content > *").css("opacity", 1);
-                tl.add(TweenMax.staggerFrom(chars, 1, {width: 145, opacity: 0, ease:Sine.easeOut, onComplete: allDone}))
-                tl.add(TweenMax.staggerFrom($(".links, header h1"), 1, {opacity:0}))
-                function allDone() {
-                    // shiny.revert(); // makes ipad jumpy
-                }
-            })
-    }
-
-});
-
 
 
 // namespaced functions to be called at ones leisure
@@ -98,9 +79,9 @@ var cs = {
                 }).show();
 
                 var scrollPositionY = $placeholder.offset().top;
-                var tl = new TimelineMax;
-                tl.add( TweenMax.to(window, 0.4, {scrollTo:{y:scrollPositionY}, ease:Sine.easeOut}) )
-                // tl.add( TweenMax.to($("figure", $placeholder), 0.4, {transform: "translateY(0)", ease:Sine.easeOut}))
+                $("html, body").animate({
+                    scrollTop: scrollPositionY
+                },800)
             })
             // if image failed
             .fail( function( instance ) {
@@ -110,7 +91,9 @@ var cs = {
     destroyModal: function(e) {
         var scrollPositionY = $("#work").offset().top
         $("#placeholder").empty().hide();
-        TweenMax.to(window, 0.6, {scrollTo:{y:scrollPositionY}, ease:Sine.easeOut});
+        $("html, body").animate({
+            scrollTop: scrollPositionY
+        })
     }
 };
 
