@@ -1,29 +1,36 @@
-
-
+/* global $ */
 $(function() {
     // show larger images
     $("#work .btn").on("click", function(e) {
-        cs.modal(this);
-        return false // kill defalut and stop propagation
+        if (/img/.test(this.href)) {
+            e.preventDefault();
+            cs.modal(this);
+        } else {
+            $(this).attr("target", "_blank");
+        }
     });
-    //  remove larger iamges
-    $("#placeholder, #close").on("click", function(e) {
+
+    //  remove larger images
+    $("#placeholder, #close").on("click", function() {
         cs.destroyModal();
-    })
+    });
+
     // esc key removes larger images too
     $("body").on("keyup", function(e) {
-        if ( e.keyCode == 27 ) {
+        if ( e.keyCode === 27 ) {
             cs.destroyModal();
         }
-    })
+    });
+
     // open social links in new window
     $("a[href^='http://']").attr("target","_blank");
 
+    // slide panel over thumbnails
     $(".work-list > li").hoverIntent(function(){
         $(this).addClass("active");
     }, function() {
         $(this).removeClass("active");
-    })
+    });
 });
 
 
@@ -32,6 +39,7 @@ var cs = {
     modal: function(elem) {
 
         var $placeholder = $("#placeholder");
+        var $closeBtn = $('<div id="close">&times;</div>');
 
         // add loading spinner
         $(elem).parent().append("<div class='spinner'>");
@@ -45,28 +53,28 @@ var cs = {
             position: "relative",
             maxWidth: "95%",
             boxShadow: "2px 2px 2px rgba(0,0,0,.2)"
-        })
+        });
 
 
-        $closeBtn = $('<div id="close">&times;</div>').appendTo($placeholder).css({
+        $closeBtn.appendTo($placeholder).css({
             "position": "absolute",
             "top": "18px",
             "right": "18px",
             "width": "36px",
             "height": "36px",
-            "padding-left": "1px",
             "border-radius": "50%",
             "background-color": "#000",
             "color": "#fff",
-            "font-size": "36px",
-            "line-height": "1",
+            "font-size": "30px",
             "font-weight": "bold",
             "text-align": "center",
+            "line-height": 1,
             "cursor": "pointer"
-        })
+        });
+
         // when image is loaded
         $placeholder.imagesLoaded()
-            .done( function( instance ) {
+            .done( function() {
 
                 $(".spinner").remove();
 
@@ -81,19 +89,16 @@ var cs = {
                 var scrollPositionY = $placeholder.offset().top;
                 $("html, body").animate({
                     scrollTop: scrollPositionY
-                },800)
-            })
-            // if image failed
-            .fail( function( instance ) {
-                alert("Something has gone horribly wrong. Panic.")
-            })
+                },800);
+            });
     },
-    destroyModal: function(e) {
-        var scrollPositionY = $("#work").offset().top
+    destroyModal: function() {
+        var scrollPositionY = $("#work").offset().top;
+
         $("#placeholder").empty().hide();
         $("html, body").animate({
             scrollTop: scrollPositionY
-        })
+        });
     }
 };
 
