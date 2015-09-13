@@ -70,32 +70,37 @@ img {
 .links {
     list-style: none;
     padding: 0;
+    margin: 0;
     text-align: center;
     li {
         display: inline-block;
-        margin: 0 1.4rem;
+        margin: 0 1.8rem;
         @media (min-width: $break-1) {
             margin: 0 3rem;
         }
     }
     a {
-        display: flex;
-        align-items: center;
+        display: block;
         text-decoration: none;
         color: #fff;
-        font: 0/0 a;
         &::before {
             font-size: 1.8rem;
-            vertical-align: middle;
             @media (min-width: $break-1) {
                 font-size: 2.4rem;
             }
             @media (min-width: $break-2) {
                 font-size: 3rem;
             }
-            @media (min-width: $break-3) {
-                font-size: 3rem;
-            }
+        }
+        span {
+            position: absolute;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            border: 0;
+            margin: -1px;
         }
     }
 }
@@ -134,8 +139,6 @@ h1, h2, h3, h4 {
     align-items: center;
     min-height: 220px;
     background: #0d3047;
-    // background: #0d3047 url(/img/ui-ux.svg) no-repeat 50% 50%;
-    // background-size: contain;
     color: #fff;
     text-align: center;
     @media (min-width: $break-1 ) {
@@ -147,9 +150,6 @@ h1, h2, h3, h4 {
     @media (min-width: $break-3) {
         height: 100%;
         min-height: 680px;
-    }
-    @media (min-width: $break-4) {
-        background-attachment: fixed;
     }
     .content {
         position: relative;
@@ -170,7 +170,7 @@ h1, h2, h3, h4 {
         }
     }
     h1 {
-        margin: 1.6rem 0;
+        margin: 1.6rem 0 1.8rem;
         font-size: 4.8rem;
         line-height: 1;
         text-transform: uppercase;

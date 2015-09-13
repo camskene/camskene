@@ -518,11 +518,12 @@ img {
 .links {
   list-style: none;
   padding: 0;
+  margin: 0;
   text-align: center;
 }
 .links li {
   display: inline-block;
-  margin: 0 1.4rem;
+  margin: 0 1.8rem;
 }
 @media (min-width: 540px) {
   .links li {
@@ -530,21 +531,12 @@ img {
   }
 }
 .links a {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  display: block;
   text-decoration: none;
   color: #fff;
-  font: 0/0 a;
 }
 .links a::before {
   font-size: 1.8rem;
-  vertical-align: middle;
 }
 @media (min-width: 540px) {
   .links a::before {
@@ -556,10 +548,15 @@ img {
     font-size: 3rem;
   }
 }
-@media (min-width: 900px) {
-  .links a::before {
-    font-size: 3rem;
-  }
+.links a span {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: -1px;
 }
 
 /*----------------------------------------------------------------
@@ -619,11 +616,6 @@ h1, h2, h3, h4 {
     min-height: 680px;
   }
 }
-@media (min-width: 1200px) {
-  #header {
-    background-attachment: fixed;
-  }
-}
 #header .content {
   position: relative;
   top: -1rem;
@@ -646,7 +638,7 @@ h1, h2, h3, h4 {
   }
 }
 #header h1 {
-  margin: 1.6rem 0;
+  margin: 1.6rem 0 1.8rem;
   font-size: 4.8rem;
   line-height: 1;
   text-transform: uppercase;
